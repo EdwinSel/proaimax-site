@@ -1279,7 +1279,7 @@ ul { list-style: none; }
 }
 
 /* ═══════════════════════════════════════════════
-   PROOF DEMO — Video player (inside dark-col)
+   PROOF DEMO — Thumbnail (inside dark-col)
 ═══════════════════════════════════════════════ */
 .pd-video-wrap {
   position: relative;
@@ -1290,25 +1290,31 @@ ul { list-style: none; }
   aspect-ratio: 16 / 9;
   overflow: hidden;
   margin-top: 16px;
+  cursor: pointer;
 }
-
-.pd-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
+.pd-thumbnail {
+  width: 100%; height: 100%;
+  display: block; object-fit: cover;
 }
-
-.pd-video-placeholder {
-  display: none;
+.pd-play-btn {
   position: absolute;
   inset: 0;
-  background: #1E293B;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  color: #9CA3AF;
+  background: rgba(0,0,0,.35);
+  transition: background 0.25s ease;
 }
+.pd-video-wrap:hover .pd-play-btn { background: rgba(0,0,0,.5); }
+.pd-play-btn svg {
+  width: 64px; height: 64px;
+  background: rgba(16,185,129,.9);
+  border-radius: 50%;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: transform 0.25s ease;
+}
+.pd-video-wrap:hover .pd-play-btn svg { transform: scale(1.1); }
 
 /* 2-column proof grid variant */
 .proof-grid--2col {

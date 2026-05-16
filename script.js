@@ -152,12 +152,3 @@ const activeObserver = new IntersectionObserver(
 
 sections.forEach(s => activeObserver.observe(s));
 
-/* ── Proof Demo — video error fallback ──────── */
-const pdVideo       = document.querySelector('.pd-video');
-const pdPlaceholder = document.querySelector('.pd-video-placeholder');
-if (pdVideo && pdPlaceholder) {
-  pdVideo.addEventListener('error', () => {
-    pdVideo.style.display = 'none';
-    pdPlaceholder.style.display = 'flex';
-  });
-}
