@@ -8,24 +8,55 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
 });
 
-/* ── Mobile hamburger ───────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('navLinks');
+/* ── Mobile slide panel ─────────────────────── */
+const nbHamburger = document.getElementById('nbHamburger');
+const nbPanel     = document.getElementById('nbPanel');
+const nbOverlay   = document.getElementById('nbOverlay');
+const nbClose     = document.getElementById('nbClose');
 
-hamburger.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('mobile-open');
-  hamburger.classList.toggle('open', open);
-  hamburger.setAttribute('aria-expanded', open);
+function openPanel() {
+  nbPanel.classList.add('open');
+  nbOverlay.classList.add('show');
+  document.body.classList.add('nb-open');
+  nbHamburger.classList.add('open');
+  nbHamburger.setAttribute('aria-expanded', 'true');
+  nbPanel.setAttribute('aria-hidden', 'false');
+  nbClose.focus();
+}
+
+function closePanel() {
+  nbPanel.classList.remove('open');
+  nbOverlay.classList.remove('show');
+  document.body.classList.remove('nb-open');
+  nbHamburger.classList.remove('open');
+  nbHamburger.setAttribute('aria-expanded', 'false');
+  nbPanel.setAttribute('aria-hidden', 'true');
+  nbHamburger.focus();
+}
+
+nbHamburger.addEventListener('click', openPanel);
+nbClose.addEventListener('click', closePanel);
+nbOverlay.addEventListener('click', closePanel);
+
+// Close panel when any panel link is clicked
+nbPanel.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', closePanel);
 });
 
-// Close mobile menu when a link is clicked
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('mobile-open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', false);
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && nbPanel.classList.contains('open')) closePanel();
+});
+
+/* ── Logo image fallback ────────────────────── */
+const nbLogoImg      = document.querySelector('.nb-logo-img');
+const nbLogoFallback = document.querySelector('.nb-logo-text');
+if (nbLogoImg && nbLogoFallback) {
+  nbLogoImg.addEventListener('error', () => {
+    nbLogoImg.style.display = 'none';
+    nbLogoFallback.style.display = 'block';
   });
-});
+}
 
 /* ── Back-to-top button ─────────────────────── */
 const backToTop = document.getElementById('backToTop');
@@ -133,17 +164,17 @@ if (ppStatNums.length) {
   ppStatNums.forEach(el => counterObserver.observe(el));
 }
 
-/* ── Smooth active nav highlighting ─────────── */
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a');
+/* ── Active nav link highlighting ───────────── */
+const sections   = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nb-link, .nb-panel-link');
 
 const activeObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         navAnchors.forEach(a => a.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
+        document.querySelectorAll(`.nb-link[href="#${entry.target.id}"], .nb-panel-link[href="#${entry.target.id}"]`)
+          .forEach(a => a.classList.add('active'));
       }
     });
   },
