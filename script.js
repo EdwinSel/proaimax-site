@@ -152,3 +152,12 @@ const activeObserver = new IntersectionObserver(
 
 sections.forEach(s => activeObserver.observe(s));
 
+/* ── Proof section — play button ────────────── */
+const prPlayBtn = document.querySelector('.pr-play-btn');
+if (prPlayBtn) {
+  prPlayBtn.addEventListener('click', () => {
+    // Replace href with your video URL or YouTube embed link
+    window.location.href = '#';
+  });
+}
+
