@@ -254,3 +254,17 @@ if (prPlayBtn) {
   startAuto();
 })();
 
+/* ── Footer & section anchor smooth scroll ───── */
+document.querySelectorAll('.ft-link, .ft-legal-link, .cns-btn').forEach(el => {
+  const href = el.getAttribute('href');
+  if (href && href.startsWith('#') && href.length > 1) {
+    el.addEventListener('click', function (e) {
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+});
+
