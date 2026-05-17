@@ -2579,14 +2579,19 @@ body.nb-open { overflow: hidden; }
 }
 .ft-info-note {
   display: flex;
-  align-items: flex-start;
-  gap: 7px;
+  flex-direction: column;
+  gap: 6px;
   font-size: .75rem;
   color: #94A3B8;
   line-height: 1.5;
-  margin-top: 10px;
+  margin-top: 16px;
 }
-.ft-info-note svg { flex-shrink: 0; margin-top: 1px; }
+.ft-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.ft-info-row svg { flex-shrink: 0; margin-top: 1px; }
 
 .ft-contact-box--phone {
   font-size: .9rem;
