@@ -1298,6 +1298,31 @@ body.nb-open { overflow: hidden; }
 }
 .fn-quote p:last-child { margin-bottom: 0; }
 .fn-quote strong { font-weight: 700; }
+.fn-quote-regular { font-weight: 400; }
+.fn-quote-bold    { font-weight: 700; }
+
+/* How We Built ProAiMax */
+.fn-how-built {
+  margin-top: 48px;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #F0FDF4;
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+}
+.fn-how-built-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.fn-how-built-text {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1.6;
+  margin: 0;
+}
 
 /* Card rows (problem + value) */
 .fn-cards {
@@ -1431,7 +1456,7 @@ body.nb-open { overflow: hidden; }
 ═══════════════════════════════════════════════ */
 .pr-section {
   padding: 80px 0;
-  background: var(--white);
+  background: #F9FAFB;
 }
 .pr-header {
   text-align: center;
@@ -1580,11 +1605,143 @@ body.nb-open { overflow: hidden; }
   width: 100%;
 }
 
+/* ── Testimonial Carousel ─────────────────────── */
+
+/* Card override: needs relative positioning for arrows */
+.pr-carousel-card {
+  position: relative;
+}
+
+/* Arrow buttons — absolute over the full card */
+.tc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid #E5E7EB;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  transition: background .25s ease, border-color .25s ease,
+              color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.tc-arrow--left  { left: 12px; }
+.tc-arrow--right { right: 12px; }
+.tc-arrow:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(16,185,129,.3);
+}
+.tc-arrow:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+
+/* Slide viewport — fixed height so absolute children have a parent */
+.tc-slides {
+  position: relative;
+  width: 100%;
+  min-height: 370px;
+}
+
+/* Individual slide — all stacked via absolute; active fades in */
+.tc-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4px 20px 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s ease-in-out;
+  z-index: 0;
+}
+.tc-slide--active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Avatar initial circle */
+.tc-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 auto 18px;
+  flex-shrink: 0;
+}
+
+/* Star rating */
+.tc-stars {
+  color: #F59E0B;
+  font-size: 22px;
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+/* Quote text */
+.tc-quote {
+  font-size: 15px;
+  font-style: italic;
+  color: #64748B;
+  line-height: 1.8;
+  margin: 0 auto 22px;
+  max-width: 88%;
+}
+
+/* Author */
+.tc-author  { width: 100%; }
+.tc-name    { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.tc-role    { font-size: 13px; color: #64748B; margin-bottom: 2px; }
+.tc-company { font-size: 13px; color: var(--green); font-weight: 500; }
+
+/* Indicator dots */
+.tc-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #D1D5DB;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: width .3s ease, background .3s ease;
+}
+.tc-dot--active       { width: 24px; background: var(--green); }
+.tc-dot:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+
+/* ── pr-* responsive ─────────────────────────── */
 /* Responsive */
 @media (max-width: 1023px) {
   .pr-grid  { gap: 32px; }
   .pr-title { font-size: 40px; }
   .pr-card  { padding: 32px 24px; }
+  .tc-arrow { width: 38px; height: 38px; }
+  .tc-arrow--left  { left: 8px; }
+  .tc-arrow--right { right: 8px; }
+  .tc-slides { min-height: 400px; }
 }
 @media (max-width: 767px) {
   .pr-section { padding: 64px 0; }
@@ -1594,6 +1751,10 @@ body.nb-open { overflow: hidden; }
   .pr-card    { padding: 32px 24px; min-height: auto; }
   .pr-av--sm  { width: 56px; height: 56px; }
   .pr-av--lg  { width: 72px; height: 72px; }
+  .tc-arrow--left  { left: 4px; }
+  .tc-arrow--right { right: 4px; }
+  .tc-slides  { min-height: 420px; }
+  .tc-quote   { font-size: 14px; max-width: 100%; }
 }
 
 /* ═══════════════════════════════════════════════

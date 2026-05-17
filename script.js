@@ -192,3 +192,65 @@ if (prPlayBtn) {
   });
 }
 
+/* ── Testimonial Carousel ─────────────────────── */
+(function () {
+  const carousel = document.getElementById('testimonialCarousel');
+  if (!carousel) return;
+
+  const slides = Array.from(carousel.querySelectorAll('.tc-slide'));
+  const dots   = Array.from(carousel.querySelectorAll('.tc-dot'));
+  const prevBtn = document.getElementById('tcPrev');
+  const nextBtn = document.getElementById('tcNext');
+  const total   = slides.length;
+  let current   = 0;
+  let timer     = null;
+
+  function goTo(index) {
+    // Deactivate current
+    slides[current].classList.remove('tc-slide--active');
+    dots[current].classList.remove('tc-dot--active');
+    dots[current].setAttribute('aria-selected', 'false');
+
+    // Advance index with wrap-around
+    current = (index + total) % total;
+
+    // Activate new
+    slides[current].classList.add('tc-slide--active');
+    dots[current].classList.add('tc-dot--active');
+    dots[current].setAttribute('aria-selected', 'true');
+  }
+
+  function startAuto() {
+    timer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  function stopAuto() {
+    clearInterval(timer);
+  }
+
+  function resetAuto() { stopAuto(); startAuto(); }
+
+  // Arrow controls
+  prevBtn.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  nextBtn.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+  // Dot controls
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => { goTo(i); resetAuto(); });
+  });
+
+  // Pause auto-slide while hovering
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  // Keyboard: arrow keys when carousel is focused
+  carousel.setAttribute('tabindex', '0');
+  carousel.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
+    if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
+  });
+
+  // Boot
+  startAuto();
+})();
+
