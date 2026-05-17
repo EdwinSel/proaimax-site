@@ -1169,6 +1169,7 @@ body.nb-open { overflow: hidden; }
   font-weight: 700;
   color: var(--white);
   margin-bottom: 32px;
+  text-align: center;
 }
 
 /* Advisors stacked (two rows) */
@@ -1177,7 +1178,7 @@ body.nb-open { overflow: hidden; }
   flex-direction: column;
 }
 
-.fn-advisor { margin-bottom: 28px; }
+.fn-advisor { margin-bottom: 28px; text-align: center; }
 .fn-advisor:last-child { margin-bottom: 0; }
 
 .fn-advisor-img-wrap {
@@ -1187,6 +1188,8 @@ body.nb-open { overflow: hidden; }
   aspect-ratio: 3/4;
   margin-bottom: 24px;
   max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fn-advisor-img {
@@ -1236,6 +1239,7 @@ body.nb-open { overflow: hidden; }
 .fn-label-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   margin-bottom: 16px;
 }
@@ -1263,12 +1267,14 @@ body.nb-open { overflow: hidden; }
   color: var(--navy);
   margin-bottom: 8px;
   line-height: 1.15;
+  text-align: center;
 }
 
 .fn-subheading {
   font-size: 1.25rem;
   color: var(--slate);
   margin-bottom: 24px;
+  text-align: center;
 }
 
 /* Quote */
