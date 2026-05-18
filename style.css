@@ -359,6 +359,85 @@ body.nb-open { overflow: hidden; }
 }
 
 /* ═══════════════════════════════════════════════
+   NAVBAR DROPDOWN
+═══════════════════════════════════════════════ */
+
+/* Parent li */
+.nb-has-dropdown { position: relative; }
+
+/* Animated chevron */
+.nb-chevron {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.nb-has-dropdown:hover .nb-chevron,
+.nb-has-dropdown:focus-within .nb-chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+.nb-dropdown {
+  position: absolute;
+  top: 100%;          /* flush — no gap that breaks hover */
+  left: 0;
+  min-width: 220px;
+  padding: 8px 6px 6px; /* top padding creates visual gap without dead zone */
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 900;
+}
+.nb-has-dropdown:hover .nb-dropdown,
+.nb-has-dropdown:focus-within .nb-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Dropdown link */
+.nb-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1E293B;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+.nb-dropdown-link:hover  { background: #F0FDF4; color: #10B981; }
+.nb-dd-icon {
+  display: flex;
+  align-items: center;
+  color: #10B981;
+  flex-shrink: 0;
+}
+
+/* Mobile sub-link (indented under a panel link) */
+.nb-panel-sublink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px 9px 52px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748B;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nb-panel-sublink:hover { background: #F0FDF4; color: #10B981; }
+
+/* ═══════════════════════════════════════════════
    DARK SECTION HELPER
 ═══════════════════════════════════════════════ */
 .dark-section {
